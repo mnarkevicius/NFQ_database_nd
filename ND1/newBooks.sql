@@ -34,7 +34,7 @@ CREATE TABLE `Author-Book` (
 
 LOCK TABLES `Author-Book` WRITE;
 /*!40000 ALTER TABLE `Author-Book` DISABLE KEYS */;
-INSERT INTO `Author-Book` VALUES (1,1),(2,2),(4,3),(6,4),(8,5),(8,9),(9,10),(10,11),(10,12),(3,2),(7,5);
+INSERT INTO `Author-Book` VALUES (1,1),(2,2),(4,3),(6,4),(8,5),(8,9),(9,10),(10,11),(2,3),(5,7),(10,12);
 /*!40000 ALTER TABLE `Author-Book` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -49,7 +49,7 @@ CREATE TABLE `Authors` (
   `authorId` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET latin1 COLLATE latin1_german1_ci NOT NULL,
   PRIMARY KEY (`authorId`)
-) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -71,13 +71,14 @@ DROP TABLE IF EXISTS `Books`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Books` (
   `bookId` int(11) NOT NULL AUTO_INCREMENT,
+  `authorId` int(11) DEFAULT NULL,
   `title` varchar(255) NOT NULL,
   `year` year(4) DEFAULT NULL,
   `genreId` int(11) DEFAULT NULL,
   PRIMARY KEY (`bookId`),
   KEY `book_genre_fk` (`genreId`),
   CONSTRAINT `Books_ibfk_1` FOREIGN KEY (`genreId`) REFERENCES `Genres` (`genreId`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -86,7 +87,7 @@ CREATE TABLE `Books` (
 
 LOCK TABLES `Books` WRITE;
 /*!40000 ALTER TABLE `Books` DISABLE KEYS */;
-INSERT INTO `Books` VALUES (1,'Programming F# 3.0, 2nd Edition',2012,NULL),(2,'Regular Expressions Cookbook, 2nd Edition',2012,NULL),(3,'Head First Networking',2009,NULL),(4,'The Art of Concurrency',2009,NULL),(5,'97 Things Every Programmer Should Know',2010,NULL),(9,'Lazda',1959,NULL),(10,'Balta drobule',1968,NULL),(11,'The Red One',1918,NULL),(12,'Black is the new black',1920,NULL);
+INSERT INTO `Books` VALUES (1,1,'Programming F# 3.0, 2nd Edition',2012,NULL),(2,2,'Regular Expressions Cookbook, 2nd Edition',2012,NULL),(3,4,'Head First Networking',2009,NULL),(4,6,'The Art of Concurrency',2009,NULL),(5,8,'97 Things Every Programmer Should Know',2010,NULL),(9,8,'Lazda',1959,NULL),(10,9,'Balta drobule',1968,NULL),(11,10,'The Red One',1918,NULL);
 /*!40000 ALTER TABLE `Books` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -122,4 +123,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-11-14 21:09:09
+-- Dump completed on 2016-11-14 22:41:48
