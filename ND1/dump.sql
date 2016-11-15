@@ -23,8 +23,9 @@ DROP TABLE IF EXISTS `Author-Book`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Author-Book` (
-  `authorId` int(11) DEFAULT NULL,
-  `bookId` int(11) DEFAULT NULL
+  `authorId` int(11) NOT NULL,
+  `bookId` int(11) NOT NULL,
+  PRIMARY KEY (`authorId`,`bookId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -34,7 +35,7 @@ CREATE TABLE `Author-Book` (
 
 LOCK TABLES `Author-Book` WRITE;
 /*!40000 ALTER TABLE `Author-Book` DISABLE KEYS */;
-INSERT INTO `Author-Book` VALUES (1,1),(2,2),(4,3),(6,4),(8,5),(8,9),(9,10),(10,11),(2,3),(5,7),(10,12);
+INSERT INTO `Author-Book` VALUES (1,1),(2,2),(3,2),(4,3),(6,4),(7,5);
 /*!40000 ALTER TABLE `Author-Book` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -49,7 +50,7 @@ CREATE TABLE `Authors` (
   `authorId` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET latin1 COLLATE latin1_german1_ci NOT NULL,
   PRIMARY KEY (`authorId`)
-) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -71,14 +72,11 @@ DROP TABLE IF EXISTS `Books`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `Books` (
   `bookId` int(11) NOT NULL AUTO_INCREMENT,
-  `authorId` int(11) DEFAULT NULL,
-  `title` varchar(255) NOT NULL,
+  `title` varchar(255) COLLATE latin1_general_ci NOT NULL,
   `year` year(4) DEFAULT NULL,
   `genreId` int(11) DEFAULT NULL,
-  PRIMARY KEY (`bookId`),
-  KEY `book_genre_fk` (`genreId`),
-  CONSTRAINT `Books_ibfk_1` FOREIGN KEY (`genreId`) REFERENCES `Genres` (`genreId`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`bookId`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -87,7 +85,7 @@ CREATE TABLE `Books` (
 
 LOCK TABLES `Books` WRITE;
 /*!40000 ALTER TABLE `Books` DISABLE KEYS */;
-INSERT INTO `Books` VALUES (1,1,'Programming F# 3.0, 2nd Edition',2012,NULL),(2,2,'Regular Expressions Cookbook, 2nd Edition',2012,NULL),(3,4,'Head First Networking',2009,NULL),(4,6,'The Art of Concurrency',2009,NULL),(5,8,'97 Things Every Programmer Should Know',2010,NULL),(9,8,'Lazda',1959,NULL),(10,9,'Balta drobule',1968,NULL),(11,10,'The Red One',1918,NULL);
+INSERT INTO `Books` VALUES (1,'Programming F# 3.0, 2nd Edition',2012,1),(2,'Regular Expressions Cookbook, 2nd Edition',2012,1),(3,'Head First Networking',2009,1),(4,'The Art of Concurrency',2009,1),(5,'97 Things Every Programmer Should Know',2010,1);
 /*!40000 ALTER TABLE `Books` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -102,7 +100,7 @@ CREATE TABLE `Genres` (
   `genreId` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(55) COLLATE latin1_general_ci DEFAULT NULL,
   PRIMARY KEY (`genreId`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -111,6 +109,7 @@ CREATE TABLE `Genres` (
 
 LOCK TABLES `Genres` WRITE;
 /*!40000 ALTER TABLE `Genres` DISABLE KEYS */;
+INSERT INTO `Genres` VALUES (1,'Technology');
 /*!40000 ALTER TABLE `Genres` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -123,4 +122,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-11-14 22:41:48
+-- Dump completed on 2016-11-15 23:15:10
