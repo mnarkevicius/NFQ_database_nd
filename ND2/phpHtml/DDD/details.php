@@ -12,7 +12,7 @@ $bookRepository = new BookRepository($mysqli);
 <body>
 <?php
 $book = $bookRepository->getById($_GET['id']);
-echo $book->getTitle();
+echo $book->getTitle() . " " . $book->getAuthor() . "<br>";
 ?>
 </body>
 </html>

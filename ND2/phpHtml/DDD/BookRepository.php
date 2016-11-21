@@ -15,30 +15,43 @@ class BookRepository
         $this->connection = $connection;
     }
 
-    function getById($id){
-        $res = $this->connection->query('SELECT * FROM Books WHERE Books.bookId=' . $id);
-        $res->data_seek(0);
+    function getById($id)
+    {
+        $res = $this->connection->query('SELECT `Books`.*, 
+        GROUP_CONCAT(DISTINCT `Authors`.`name` ORDER BY `Authors`.`name` DESC SEPARATOR \', \')  as author
+        FROM `Books`
+        INNER JOIN `Author-Book` ON `Books`.`bookId` = `Author-Book`.`bookId` 
+        INNER JOIN `Authors` ON `Author-Book`.`authorId` = `Authors`.`authorId`
+        WHERE `Books`.`bookId`='. $id .'
+        GROUP BY `Books`.`BookId`;');
         $row = $res->fetch_assoc();
         $book = new Book();
         $book->setId($row['bookId']);
         $book->setTitle($row['title']);
         $book->setGenre($row['genreId']);
         $book->setYear($row['year']);
+        $book->setAuthor($row['author']);
         return $book;
     }
 
-    function getAll(){
-        $res = $this->connection->query('SELECT * FROM Books');
+    function getAll()
+    {
+        $res = $this->connection->query('SELECT `Books`.*, 
+        GROUP_CONCAT(DISTINCT `Authors`.`name` ORDER BY `Authors`.`name` DESC SEPARATOR \', \')  as author
+        FROM `Books`
+        INNER JOIN `Author-Book` ON `Books`.`bookId` = `Author-Book`.`bookId` 
+        INNER JOIN `Authors` ON `Author-Book`.`authorId` = `Authors`.`authorId`
+        GROUP BY `Books`.`BookId`;');
         $res->data_seek(0);
         $list = array();
-        foreach($res as $row){
-            $row = $row->fetch_assoc();
+        while ($row = $res->fetch_assoc()) {
             $book = new Book();
             $book->setId($row['bookId']);
             $book->setTitle($row['title']);
             $book->setGenre($row['genreId']);
             $book->setYear($row['year']);
-            $list->push($book);
+            $book->setAuthor($row['author']);
+            $list[] = $book;
         }
         return $list;
     }

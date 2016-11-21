@@ -13,7 +13,7 @@ $bookRepository = new BookRepository($mysqli);
 <?php
 $books = $bookRepository->getAll();
 foreach($books as $book){
-    echo $book->getTitle();
+    echo $book->getTitle() . " " . $book->getAuthor() . "<br>";
 }
 ?>
 </body>
