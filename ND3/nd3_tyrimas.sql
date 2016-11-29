@@ -53,8 +53,25 @@ WHERE JobsRegister_Services.serviceId = 2;
 -- 0,537 sec					2,417 sec		 
 
 -- insert 1
+INSERT INTO JobsRegister_Services (jobsRegisterId, serviceId, goal)
+VALUES (1, 1, 'primary');
+-- be index						su index
+-- Duration  / Fetch			Duration  / Fetch
+-- 0,0024 sec					0,0025 sec
 
 -- insert 2
+INSERT INTO JobsRegister_Services (jobsRegisterId, serviceId, goal)
+VALUES 
+(1, 1, 'primary'),
+-- *199 998 irasu
+(1, 1, 'primary');
+-- be index						su index
+-- Duration  / Fetch			Duration  / Fetch
+-- 0,710 sec					1,167 sec
 
 -- insert 3
+
+-- be index						su index
+-- Duration  / Fetch			Duration  / Fetch
+-- 
 	
